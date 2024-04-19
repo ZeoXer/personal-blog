@@ -16,12 +16,9 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@font-face {
+  font-family: "openhuninn";
+  font-style: normal;
+  font-weight: 100 500 900;
+  src: url("../../public/fonts/jf-openhuninn-2.0.ttf") format("truetype");
 }
