@@ -1,13 +1,21 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        // destination: "http://18.179.210.152:8080/:path*",
         destination: "http://localhost:8080/:path*",
       },
     ];
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '8080',
+        pathname: '/uploadImgs/**',
+      },
+    ],
   },
 };
 

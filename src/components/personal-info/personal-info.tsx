@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { ChangeEvent, useEffect } from "react";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useUser } from "@/hooks/use-user";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
@@ -13,11 +14,25 @@ import { useImage } from "@/hooks/use-image";
 const PersonalInfo: React.FC = () => {
   const { username, email } = useUser();
   const { isDarkMode } = useDarkMode();
-  const { addAvatar } = useImage();
+  const { getAvatar, addAvatar, deleteAvatar, avatar } = useImage();
 
-  const handleRemoveAvatar = () => {
-    alert("移除頭像");
+  const handleAddAvatar = async (e: ChangeEvent<HTMLInputElement>) => {
+    const response = await addAvatar(e);
+    if (response.status) {
+      getAvatar();
+    }
   };
+
+  const handleRemoveAvatar = async () => {
+    const response = await deleteAvatar();
+    if (response.status) {
+      alert("頭像已移除");
+    }
+  };
+
+  useEffect(() => {
+    getAvatar();
+  }, [getAvatar]);
 
   return (
     <div
@@ -27,12 +42,13 @@ const PersonalInfo: React.FC = () => {
       )}
     >
       <div className="md:w-1/2">
-        <div className="size-40 md:size-80 relative mx-auto">
+        <div className="size-40 md:size-80 relative mx-auto mb-4 border-2 rounded-full">
           <Image
-            src={isDarkMode ? WhiteLogo : NormalLogo}
+            src={avatar ? avatar : isDarkMode ? WhiteLogo : NormalLogo}
             alt="user"
-            className="rounded-full mb-8 mx-auto"
+            className="rounded-full"
             fill
+            sizes="320px"
           />
         </div>
         <div>
@@ -48,9 +64,7 @@ const PersonalInfo: React.FC = () => {
             </label>
             <input
               type="file"
-              onChange={(e) => {
-                addAvatar(e);
-              }}
+              onChange={handleAddAvatar}
               className="hidden"
               id="avatar-upload"
             />

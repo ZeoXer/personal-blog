@@ -1,20 +1,13 @@
 "use client";
 
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDarkMode } from "../../hooks/use-dark-mode";
 import Logo from "./logo";
 import UserMenu from "./user-menu";
-import { isAuthenticated } from "@/data/client/token";
 
 const Header: React.FC = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  useEffect(() => {
-    const authResponse = isAuthenticated();
-    setIsAuthorized(authResponse);
-  }, []);
 
   return (
     <header>
@@ -29,7 +22,7 @@ const Header: React.FC = () => {
               <MoonIcon className="w-8 md:w-11 text-gray-500 cursor-pointer md:active:scale-90 transition" />
             )}
           </button>
-          <UserMenu isAuthorized={isAuthorized} />
+          <UserMenu />
         </div>
       </div>
     </header>

@@ -15,8 +15,3 @@ export type User = {
   email: string;
   password: string;
 };
-
-// 定義需檢驗登入狀態的元件屬性
-export type AuthPageProps = {
-  isAuthorized: boolean;
-};

@@ -3,18 +3,26 @@
 import { LinkIcon, LockOpenIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../hooks/use-user";
 import BookList from "../books/book-list";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
+import { FrontendRoutes } from "@/routes";
+import clsx from "clsx";
+import { useDarkMode } from "@/hooks/use-dark-mode";
+import Link from "next/link";
+import { useImage } from "@/hooks/use-image";
 
 const Home: React.FC = () => {
   const { username, fetchUser } = useUser();
   const { isAuthorized } = useAuth();
+  const { isDarkMode } = useDarkMode();
+  const { getAvatar } = useImage();
 
   useEffect(() => {
     if (isAuthorized) {
       fetchUser();
+      getAvatar();
     }
-  }, [isAuthorized, fetchUser]);
+  }, [isAuthorized, fetchUser, getAvatar]);
 
   return (
     <main>
@@ -36,7 +44,13 @@ const Home: React.FC = () => {
           >
             <LockOpenIcon className="w-8 md:w-12 me-2" />
             <p>
-              登入自己的部落格首頁<span className="ms-4">或</span>{" "}
+              <Link
+                href={FrontendRoutes.LOGIN}
+                className="text-green-700"
+              >
+                登入
+              </Link>
+              自己的部落格首頁<span className="ms-4">或</span>{" "}
             </p>
           </div>
           <div

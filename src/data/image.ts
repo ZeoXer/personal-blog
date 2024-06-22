@@ -1,6 +1,7 @@
 import { APIResponse } from "@/types/auth";
 import { HttpClient } from "./client/http-client";
 import { API_ENDPOINTS } from "./client/endpoints";
+import { Avatar } from "@/types/image";
 
 export async function uploadAvatar(file: FormData) {
   const response = await HttpClient.post<APIResponse<unknown>>(
@@ -11,6 +12,22 @@ export async function uploadAvatar(file: FormData) {
         "Content-Type": "multipart/form-data",
       },
     }
+  );
+
+  return response;
+}
+
+export async function fetchAvatar() {
+  const response = await HttpClient.get<APIResponse<Avatar>>(
+    API_ENDPOINTS.GET_AVATAR
+  );
+
+  return response;
+}
+
+export async function removeAvatar() {
+  const response = await HttpClient.delete<APIResponse<unknown>>(
+    API_ENDPOINTS.REMOVE_AVATAR
   );
 
   return response;

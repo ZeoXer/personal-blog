@@ -5,15 +5,17 @@ import { FrontendRoutes } from "../../routes";
 import { useEffect, useRef, useState } from "react";
 import { useUser } from "../../hooks/use-user";
 import Link from "next/link";
-import { clearAuthToken, isAuthenticated } from "@/data/client/token";
+import { clearAuthToken } from "@/data/client/token";
 import { useRouter } from "next/navigation";
-import { AuthPageProps } from "@/types/auth";
 import { useAuth } from "@/hooks/use-auth";
+import { useImage } from "@/hooks/use-image";
+import Image from "next/image";
 
-const UserMenu: React.FC<AuthPageProps> = () => {
+const UserMenu = () => {
   const { isDarkMode } = useDarkMode();
   const { username } = useUser();
   const { isAuthorized, setIsAuthorized } = useAuth();
+  const { avatar, setAvatar } = useImage();
   const [isMenuShow, setIsMenuShow] = useState(false);
   const menu = useRef<HTMLButtonElement>(null);
   const router = useRouter();
@@ -40,12 +42,25 @@ const UserMenu: React.FC<AuthPageProps> = () => {
 
   return (
     <button className="relative" onClick={toggleMenu} ref={menu}>
-      <UserCircleIcon
-        className={clsx(
-          "w-8 md:w-12 cursor-pointer md:active:scale-90 transition",
-          isDarkMode ? "text-white" : "text-gray-500"
-        )}
-      />
+      {avatar ? (
+        <div className="size-8 md:size-12 relative rounded-full">
+          <Image
+            src={avatar}
+            alt="avatar"
+            fill
+            sizes="48px"
+            className="rounded-full"
+          />
+        </div>
+      ) : (
+        <UserCircleIcon
+          className={clsx(
+            "w-8 md:w-12 cursor-pointer md:active:scale-90 transition",
+            isDarkMode ? "text-white" : "text-gray-500"
+          )}
+        />
+      )}
+
       <div
         className={clsx(
           "absolute top-full right-0 rounded-md border list-none w-36 transition-all text-lg z-[100]",
@@ -90,6 +105,7 @@ const UserMenu: React.FC<AuthPageProps> = () => {
                 onClick={() => {
                   clearAuthToken();
                   setIsAuthorized(false);
+                  setAvatar("");
                   router.push(FrontendRoutes.HOME);
                 }}
                 className="block"
