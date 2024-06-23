@@ -90,7 +90,7 @@ const SignUpForm: React.FC = () => {
       <button
         type="submit"
         className={clsx(
-          "text-2xl w-full mx-auto py-2 block transition rounded-md md:active:scale-90",
+          "text-2xl w-full mx-auto py-2 block transition rounded-lg md:active:scale-90",
           isDarkMode ? "bg-green-700 text-white" : "bg-green-300"
         )}
       >
@@ -99,7 +99,7 @@ const SignUpForm: React.FC = () => {
       <Link
         href={FrontendRoutes.LOGIN}
         className={clsx(
-          "text-2xl w-full mx-auto py-2 block transition rounded-md md:active:scale-90 text-center mt-4",
+          "text-2xl w-full mx-auto py-2 block transition rounded-lg md:active:scale-90 text-center mt-4",
           isDarkMode ? "bg-orange-700 text-white" : "bg-orange-300"
         )}
       >

@@ -11,13 +11,13 @@ const NotFound: React.FC = () => {
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       <div className="flex items-center">
-        <h2 className="text-5xl mx-4 font-bold">404</h2>
+        <h2 className="text-5xl mx-4 font-semibold">404</h2>
         <p className="text-3xl">Not Found</p>
       </div>
       <a
         href="/"
         className={clsx(
-          "block mt-4 text-2xl text-center rounded-md py-2 transition md:active:scale-90",
+          "block mt-4 text-2xl text-center rounded-lg py-2 transition md:active:scale-90",
           isDarkMode ? "bg-green-700 text-white" : "bg-green-300"
         )}
       >

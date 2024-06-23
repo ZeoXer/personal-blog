@@ -13,6 +13,8 @@ import { FrontendRoutes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { setAuthToken } from "@/data/client/token";
 import { useAuth } from "@/hooks/use-auth";
+import { useState } from "react";
+import Modal from "../common/modal";
 
 // Define the form schema using Zod
 const signInSchema = z.object({
@@ -35,9 +37,14 @@ const SignInForm: React.FC = () => {
     mode: "onChange",
   });
 
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
   const { setIsAuthorized } = useAuth();
   const router = useRouter();
+
+  const handleLoginModal = () => {
+    setIsLoginModalOpen(!isLoginModalOpen);
+  };
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -49,50 +56,60 @@ const SignInForm: React.FC = () => {
       }
     } catch (error) {
       console.log(error);
+      handleLoginModal();
     }
   });
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="mb-8">
-        <Input
-          label="信箱"
-          type="email"
-          icon={<EnvelopeIcon className="w-7 mb-1" />}
-          {...register("email")}
-          inputClassName="w-full"
-          containerClassName="mb-4"
-          error={errors.email?.message}
-        />
-        <Input
-          label="密碼"
-          type="password"
-          icon={<LockClosedIcon className="w-7 mb-1" />}
-          inputClassName="w-full"
-          containerClassName="mb-4"
-          {...register("password")}
-          error={errors.password?.message}
-        />
-      </div>
-      <button
-        type="submit"
-        className={clsx(
-          "text-2xl w-full mx-auto py-2 block transition rounded-md md:active:scale-90",
-          isDarkMode ? "bg-green-700 text-white" : "bg-green-300"
-        )}
+    <>
+      <form onSubmit={onSubmit}>
+        <div className="mb-8">
+          <Input
+            label="信箱"
+            type="email"
+            icon={<EnvelopeIcon className="w-7 mb-1" />}
+            {...register("email")}
+            inputClassName="w-full"
+            containerClassName="mb-4"
+            error={errors.email?.message}
+          />
+          <Input
+            label="密碼"
+            type="password"
+            icon={<LockClosedIcon className="w-7 mb-1" />}
+            inputClassName="w-full"
+            containerClassName="mb-4"
+            {...register("password")}
+            error={errors.password?.message}
+          />
+        </div>
+        <button
+          type="submit"
+          className={clsx(
+            "text-2xl w-full mx-auto py-2 block transition rounded-lg md:active:scale-90",
+            isDarkMode ? "bg-green-700 text-white" : "bg-green-300"
+          )}
+        >
+          登入
+        </button>
+        <Link
+          href={FrontendRoutes.SIGNUP}
+          className={clsx(
+            "text-2xl w-full mx-auto py-2 block transition rounded-lg md:active:scale-90 text-center mt-4",
+            isDarkMode ? "bg-orange-700 text-white" : "bg-orange-300"
+          )}
+        >
+          註冊帳號
+        </Link>
+      </form>
+      <Modal
+        title="登入失敗"
+        isOpen={isLoginModalOpen}
+        setIsOpen={setIsLoginModalOpen}
       >
-        登入
-      </button>
-      <Link
-        href={FrontendRoutes.SIGNUP}
-        className={clsx(
-          "text-2xl w-full mx-auto py-2 block transition rounded-md md:active:scale-90 text-center mt-4",
-          isDarkMode ? "bg-orange-700 text-white" : "bg-orange-300"
-        )}
-      >
-        註冊帳號
-      </Link>
-    </form>
+        帳號或密碼錯誤
+      </Modal>
+    </>
   );
 };
 

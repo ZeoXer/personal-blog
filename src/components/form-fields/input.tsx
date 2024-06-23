@@ -35,8 +35,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             type={type}
             {...inputProps}
             className={clsx(
-              "border border-gray-300 text-xl rounded-md px-2 py-1 mb-1",
-              isDarkMode ? "bg-gray-900 text-white" : "bg-white",
+              "border-2 text-xl rounded-lg px-2 py-1 mb-1",
+              isDarkMode
+                ? "bg-gray-900 text-white"
+                : "bg-white border-gray-900",
               icon && "ps-10",
               inputClassName
             )}

@@ -22,3 +22,8 @@
   font-weight: 100 500 900;
   src: url("../../public/fonts/jf-openhuninn-2.0.ttf") format("truetype");
 }
+
+/* 隱藏滾動條 */
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

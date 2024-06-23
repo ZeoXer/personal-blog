@@ -49,23 +49,23 @@ const UserMenu = () => {
             alt="avatar"
             fill
             sizes="48px"
-            className="rounded-full"
+            className="rounded-full object-cover"
           />
         </div>
       ) : (
         <UserCircleIcon
           className={clsx(
             "w-8 md:w-12 cursor-pointer md:active:scale-90 transition",
-            isDarkMode ? "text-white" : "text-gray-500"
+            isDarkMode ? "text-white" : "text-gray-900"
           )}
         />
       )}
 
       <div
         className={clsx(
-          "absolute top-full right-0 rounded-md border list-none w-36 transition-all text-lg z-[100]",
+          "absolute top-full right-0 rounded-lg border-2 list-none w-36 transition-all text-lg z-[100]",
           isMenuShow ? "opacity-100" : "opacity-0 pointer-events-none",
-          isDarkMode ? "bg-gray-900 text-white" : "bg-white"
+          isDarkMode ? "bg-gray-900 text-white" : "bg-white border-gray-900"
         )}
       >
         {isAuthorized ? (
@@ -83,18 +83,16 @@ const UserMenu = () => {
                 個人檔案
               </Link>
             </li>
-            <li className="bg-white h-[0.5px]"></li>
             <li
               className={clsx(
-                "py-2 transition",
-                isDarkMode ? "md:hover:bg-sky-800" : "md:hover:bg-gray-200"
+                "py-2 transition border-y-2",
+                isDarkMode ? "md:hover:bg-sky-800" : "md:hover:bg-gray-200 border-gray-900"
               )}
             >
               <Link href="/" className="block">
                 管理文章
               </Link>
             </li>
-            <li className="bg-white h-[0.5px]"></li>
             <li
               className={clsx(
                 "py-2 rounded-b-md transition",
@@ -117,7 +115,7 @@ const UserMenu = () => {
         ) : (
           <li
             className={clsx(
-              "py-2 md:active:scale-90 rounded-md transition",
+              "py-2 md:active:scale-90 rounded-lg transition",
               isDarkMode ? "md:hover:bg-sky-800" : "md:hover:bg-gray-200"
             )}
           >
