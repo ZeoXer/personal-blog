@@ -9,6 +9,8 @@ type InputProps = {
   inputClassName?: string;
   containerClassName?: string;
   error?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

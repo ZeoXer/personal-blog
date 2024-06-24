@@ -43,7 +43,7 @@ const UserMenu = () => {
   return (
     <button className="relative" onClick={toggleMenu} ref={menu}>
       {avatar ? (
-        <div className="size-8 md:size-12 relative rounded-full">
+        <div className="size-8 md:size-12 relative rounded-full border-2 border-gray-900">
           <Image
             src={avatar}
             alt="avatar"
@@ -63,7 +63,7 @@ const UserMenu = () => {
 
       <div
         className={clsx(
-          "absolute top-full right-0 rounded-lg border-2 list-none w-36 transition-all text-lg z-[100]",
+          "absolute top-full mt-1 right-0 rounded-lg border-2 list-none w-36 transition-all text-lg z-[100]",
           isMenuShow ? "opacity-100" : "opacity-0 pointer-events-none",
           isDarkMode ? "bg-gray-900 text-white" : "bg-white border-gray-900"
         )}
@@ -89,7 +89,7 @@ const UserMenu = () => {
                 isDarkMode ? "md:hover:bg-sky-800" : "md:hover:bg-gray-200 border-gray-900"
               )}
             >
-              <Link href="/" className="block">
+              <Link href={FrontendRoutes.ARTICLES} className="block">
                 管理文章
               </Link>
             </li>

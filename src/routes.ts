@@ -1,7 +1,9 @@
 export const FrontendRoutes = {
   HOME: "/",
   LOGIN: "/login",
-  PROFILE: "/profile",
   SIGNUP: "/signup",
+  PROFILE: "/profile",
+  ARTICLE: "/article",
+  ARTICLES: "/articles",
   NOT_FOUND: "*",
 };

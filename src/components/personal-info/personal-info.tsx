@@ -60,7 +60,12 @@ const PersonalInfo: React.FC = () => {
       )}
     >
       <aside className="md:w-1/2">
-        <div className="size-40 md:size-80 relative mx-auto mb-4 border-2 rounded-full">
+        <div
+          className={clsx(
+            "size-40 md:size-80 relative mx-auto mb-4 rounded-full",
+            avatar && "border-2"
+          )}
+        >
           <Image
             src={avatar ? avatar : isDarkMode ? WhiteLogo : NormalLogo}
             alt="user"
