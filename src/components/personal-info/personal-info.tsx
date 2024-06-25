@@ -11,14 +11,13 @@ import NormalLogo from "../../imgs/zeoxers-blog-logo-transparent.svg";
 import Image from "next/image";
 import { useImage } from "@/hooks/use-image";
 import Modal from "../common/modal";
-import { useAuth } from "@/hooks/use-auth";
+import { isAuthenticated } from "@/data/client/token";
 
 const PersonalInfo: React.FC = () => {
   const [isRemoveAvatarModalOpen, setIsRemoveAvatarModalOpen] = useState(false);
   const [isUploadAvatarModalOpen, setIsUploadAvatarModalOpen] = useState(false);
   const { username, email } = useUser();
   const { isDarkMode } = useDarkMode();
-  const { isAuthorized } = useAuth();
   const { getAvatar, addAvatar, deleteAvatar, avatar } = useImage();
 
   const handleRemoveAvatarModal = () => {
@@ -47,10 +46,10 @@ const PersonalInfo: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isAuthorized) {
+    if (isAuthenticated()) {
       getAvatar();
     }
-  }, [isAuthorized, getAvatar]);
+  }, [getAvatar]);
 
   return (
     <main
@@ -63,7 +62,7 @@ const PersonalInfo: React.FC = () => {
         <div
           className={clsx(
             "size-40 md:size-80 relative mx-auto mb-4 rounded-full",
-            avatar && "border-2"
+            avatar && "border-2 border-gray-900"
           )}
         >
           <Image

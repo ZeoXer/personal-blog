@@ -5,16 +5,14 @@ import { FrontendRoutes } from "../../routes";
 import { useEffect, useRef, useState } from "react";
 import { useUser } from "../../hooks/use-user";
 import Link from "next/link";
-import { clearAuthToken } from "@/data/client/token";
+import { clearAuthToken, isAuthenticated } from "@/data/client/token";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/use-auth";
 import { useImage } from "@/hooks/use-image";
 import Image from "next/image";
 
 const UserMenu = () => {
   const { isDarkMode } = useDarkMode();
   const { username } = useUser();
-  const { isAuthorized, setIsAuthorized } = useAuth();
   const { avatar, setAvatar } = useImage();
   const [isMenuShow, setIsMenuShow] = useState(false);
   const menu = useRef<HTMLButtonElement>(null);
@@ -68,7 +66,7 @@ const UserMenu = () => {
           isDarkMode ? "bg-gray-900 text-white" : "bg-white border-gray-900"
         )}
       >
-        {isAuthorized ? (
+        {isAuthenticated() ? (
           <>
             <li
               className={clsx(
@@ -86,7 +84,9 @@ const UserMenu = () => {
             <li
               className={clsx(
                 "py-2 transition border-y-2",
-                isDarkMode ? "md:hover:bg-sky-800" : "md:hover:bg-gray-200 border-gray-900"
+                isDarkMode
+                  ? "md:hover:bg-sky-800"
+                  : "md:hover:bg-gray-200 border-gray-900"
               )}
             >
               <Link href={FrontendRoutes.ARTICLES} className="block">
@@ -102,7 +102,6 @@ const UserMenu = () => {
               <p
                 onClick={() => {
                   clearAuthToken();
-                  setIsAuthorized(false);
                   setAvatar("");
                   router.push(FrontendRoutes.HOME);
                 }}

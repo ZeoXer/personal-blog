@@ -12,7 +12,6 @@ import Link from "next/link";
 import { FrontendRoutes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { setAuthToken } from "@/data/client/token";
-import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
 import Modal from "../common/modal";
 
@@ -39,7 +38,6 @@ const SignInForm: React.FC = () => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
-  const { setIsAuthorized } = useAuth();
   const router = useRouter();
 
   const handleLoginModal = () => {
@@ -51,7 +49,6 @@ const SignInForm: React.FC = () => {
       const response = await login(data.email, data.password);
       if (response.status) {
         setAuthToken(response.data.token.toString());
-        setIsAuthorized(true);
         router.push(FrontendRoutes.HOME);
       }
     } catch (error) {

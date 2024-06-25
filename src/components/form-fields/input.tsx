@@ -10,7 +10,9 @@ type InputProps = {
   containerClassName?: string;
   error?: string;
   value?: string;
+  readOnly?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -37,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             type={type}
             {...inputProps}
             className={clsx(
-              "border-2 text-xl rounded-lg px-2 py-1 mb-1",
+              "border-2 rounded-lg px-2 py-1 mb-1",
               isDarkMode
                 ? "bg-gray-900 text-white"
                 : "bg-white border-gray-900",

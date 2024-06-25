@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { FrontendRoutes } from "../../routes";
-import { getAuthToken } from "./token";
+import { clearAuthToken, getAuthToken } from "./token";
 
 // Create an instance of Axios with the base URL
 const Axios = axios.create({
@@ -20,6 +20,11 @@ const checkUrlInWhiteList = () => {
   return whiteList.includes(window.location.pathname);
 };
 
+const errStatus = [401, 500];
+const checkStatus = (status: number) => {
+  return errStatus.includes(status);
+};
+
 Axios.interceptors.request.use((config) => {
   const token = getAuthToken();
 
@@ -35,8 +40,8 @@ Axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401 && !checkUrlInWhiteList()) {
-      localStorage.removeItem("authToken");
+    if (checkStatus(error.response?.status) && !checkUrlInWhiteList()) {
+      clearAuthToken();
       window.location.assign(FrontendRoutes.LOGIN);
     }
 
