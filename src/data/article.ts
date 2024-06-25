@@ -21,3 +21,18 @@ export async function getAllArticleCategory() {
 
   return response;
 }
+
+export async function updateArticleCategory(
+  categoryId: number,
+  categoryName: string
+) {
+  const response = await HttpClient.put<APIResponse<unknown>>(
+    API_ENDPOINTS.UPDATE_CATEGORY,
+    {
+      category_id: categoryId,
+      category_name: categoryName,
+    }
+  );
+
+  return response;
+}

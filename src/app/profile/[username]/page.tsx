@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "個人檔案",
 };
 
-export default function PersonalInfoPage({ params }: { params: { username: string } }) {
+export default function PersonalInfoPage() {
   return (
     <div>
       <PersonalInfo />

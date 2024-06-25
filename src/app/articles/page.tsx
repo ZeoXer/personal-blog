@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "管理文章",
 };
 
-export default function LoginPage() {
+export default function ArticlesPage() {
   return (
     <div className="py-6 px-4">
       <ArticleManage />

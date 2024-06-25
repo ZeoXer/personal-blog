@@ -3,7 +3,7 @@ import { useDarkMode } from "../../hooks/use-dark-mode";
 import { ReactNode, forwardRef } from "react";
 
 type InputProps = {
-  label: string;
+  label?: string;
   type?: "text" | "password" | "email";
   icon?: ReactNode;
   inputClassName?: string;
@@ -32,14 +32,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={containerClassName}>
-        <label className="text-2xl block mb-2">{label}</label>
+        {label && <label className="text-2xl block mb-2">{label}</label>}
         <div className="relative flex items-center">
           <input
             ref={ref}
             type={type}
             {...inputProps}
             className={clsx(
-              "border-2 rounded-lg px-2 py-1 mb-1",
+              "border-2 rounded-lg px-2 py-1",
               isDarkMode
                 ? "bg-gray-900 text-white"
                 : "bg-white border-gray-900",
@@ -53,7 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && <p className="text-red-500 text-md font-semibold">{error}</p>}
+        {error && <p className="text-red-500 text-md font-semibold mt-1">{error}</p>}
       </div>
     );
   }
