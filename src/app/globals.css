@@ -2,29 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  font-size: 18px;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    font-size: 18px;
   }
-}
 
-@font-face {
-  font-family: "openhuninn";
-  font-style: normal;
-  font-weight: 100 500 900;
-  src: url("../../public/fonts/jf-openhuninn-2.0.ttf") format("truetype");
-}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
+  }
 
-/* 隱藏滾動條 */
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  @font-face {
+    font-family: "openhuninn";
+    font-style: normal;
+    font-weight: 100 500 900;
+    src: url("../../public/fonts/jf-openhuninn-2.0.ttf") format("truetype");
+  }
+
+  /* 隱藏滾動條 */
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 }

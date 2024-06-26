@@ -70,8 +70,8 @@ const ArticleCategoryManageBlock = ({ item }: { item: ArticleCategory }) => {
           >
             <button
               className={clsx(
-                "border-2 rounded-lg md:hover:active:scale-90 transition",
-                !isDarkMode && "border-gray-900"
+                "rounded-lg md:hover:active:scale-90 transition-[background-color] duration-300",
+                isDarkMode ? "bg-green-700" : "bg-green-300"
               )}
               onClick={handleEditCategory}
             >
@@ -79,8 +79,8 @@ const ArticleCategoryManageBlock = ({ item }: { item: ArticleCategory }) => {
             </button>
             <button
               className={clsx(
-                "border-2 rounded-lg md:hover:active:scale-90 transition",
-                !isDarkMode && "border-gray-900"
+                "rounded-lg md:hover:active:scale-90 transition-[background-color] duration-300",
+                isDarkMode ? "bg-orange-700" : "bg-orange-300"
               )}
               onClick={(e) => {
                 e.stopPropagation();

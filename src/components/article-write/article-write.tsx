@@ -1,63 +1,56 @@
 "use client";
 
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import "katex/dist/katex.min.css";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { dark, docco, schoolBook, darkula } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Input from "../form-fields/input";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import Textarea from "../form-fields/textarea";
+import MarkdownDisplay from "../common/markdown-display";
+import clsx from "clsx";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 const ArticleWrite = () => {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
-  const syntaxHighlighterRef = useRef<SyntaxHighlighter>(null);
+  const { isDarkMode } = useDarkMode();
 
   return (
     <main>
-      <section className="w-full flex">
-        <Input inputClassName="text-3xl py-2 w-1/2 border-2" />
-        <div>分類</div>
-        <button>圖片</button>
-        <button className="text-xl">儲存</button>
+      <section className="w-full grid md:grid-cols-2 gap-4 mb-8">
+        <Input
+          inputClassName="text-3xl py-2 border-2 w-full"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <div className="justify-end gap-4 hidden md:flex">
+          <div>分類</div>
+          <button
+            className={clsx(
+              "text-xl px-7 py-2 rounded-lg md:active:scale-90 transition",
+              isDarkMode ? "bg-orange-700" : "bg-orange-300"
+            )}
+          >
+            圖片
+          </button>
+          <button
+            className={clsx(
+              "text-xl px-7 py-2 rounded-lg md:active:scale-90 transition",
+              isDarkMode ? "bg-green-700" : "bg-green-300"
+            )}
+          >
+            儲存
+          </button>
+        </div>
       </section>
-      <section className="text-2xl grid grid-cols-1 md:grid-cols-2">
-        <div className="w-full">
-          <textarea
+      <section className="text-2xl grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <Textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            textareaClassName="w-full h-[80vh] text-xl"
           />
         </div>
         <div className="hidden md:block">
-          <Markdown
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              code(props) {
-                const { children, className, node, ...rest } = props;
-                const match = /language-(\w+)/.exec(className || "");
-                return match ? (
-                  <SyntaxHighlighter
-                    {...rest}
-                    PreTag="div"
-                    language={match[1]}
-                    style={darkula}
-                    customStyle={{ borderRadius: "10px" }}
-                    ref={syntaxHighlighterRef}
-                  >
-                    {String(children).replace(/\n$/, "")}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code {...rest} style={dark} className={className}>
-                    {children}
-                  </code>
-                );
-              },
-            }}
-          >
-            {content}
-          </Markdown>
+          <MarkdownDisplay content={content} />
         </div>
       </section>
     </main>

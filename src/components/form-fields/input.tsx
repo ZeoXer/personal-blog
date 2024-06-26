@@ -39,12 +39,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             type={type}
             {...inputProps}
             className={clsx(
-              "border-2 rounded-lg px-2 py-1",
+              "border-2 rounded-lg px-2 py-2",
               isDarkMode
                 ? "bg-gray-900 text-white"
                 : "bg-white border-gray-900",
               icon && "ps-10",
-              inputClassName
+              inputClassName,
+              !inputClassName?.includes("text-") && "text-xl"
             )}
           />
           {icon && (
@@ -53,7 +54,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && <p className="text-red-500 text-md font-semibold mt-1">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-md font-semibold mt-1">{error}</p>
+        )}
       </div>
     );
   }
