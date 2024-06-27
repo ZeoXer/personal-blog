@@ -1,9 +1,11 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
+import { KeyboardEvent } from "react";
 import clsx from "clsx";
 import { forwardRef } from "react";
 
 type TextareaProps = {
   label?: string;
+  placeholder?: string;
   textareaClassName?: string;
   containerClassName?: string;
   error?: string;
@@ -13,16 +15,25 @@ type TextareaProps = {
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
-    {
-      label,
-      textareaClassName,
-      containerClassName,
-      error,
-      ...textareaProps
-    },
+    { label, textareaClassName, containerClassName, error, ...textareaProps },
     ref
   ) => {
     const { isDarkMode } = useDarkMode();
+
+    const tabKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      e.preventDefault();
+      alert("tab")
+    };
+
+    const handleSpecialKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      switch (e.key) {
+        case "Tab":
+          tabKey(e);
+          break;
+        default:
+          break;
+      }
+    };
 
     return (
       <div className={containerClassName}>
@@ -38,6 +49,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 : "bg-white border-gray-900",
               textareaClassName
             )}
+            onKeyDown={handleSpecialKey}
           />
         </div>
         {error && (

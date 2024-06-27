@@ -16,8 +16,25 @@ const ArticleCategoryMainDetail: React.FC = () => {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
+      setCurrentCategory(-1);
     }
-  }, [isDetailOpen]);
+  }, [isDetailOpen, setCurrentCategory]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!detail.current) return;
+
+      if (!detail.current.contains(event.target as Node)) {
+        setIsDetailOpen(false);
+      }
+    };
+
+    document.addEventListener("mouseup", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutside);
+    };
+  }, [setIsDetailOpen]);
 
   return createPortal(
     <div
@@ -39,7 +56,6 @@ const ArticleCategoryMainDetail: React.FC = () => {
             className="absolute top-6 right-6 md:active:scale-90 transition"
             onClick={() => {
               setIsDetailOpen(false);
-              setCurrentCategory(-1);
             }}
           >
             <XMarkIcon className="w-8" />
@@ -54,31 +70,6 @@ const ArticleCategoryMainDetail: React.FC = () => {
           </h2>
           <ul className="text-xl max-h-96 overflow-y-scroll py-2">
             <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li>
-            <li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li><li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
-              awefawefwea
-            </li><li className="py-2 cursor-pointer md:hover:bg-white rounded-lg text-2xl">
               awefawefwea
             </li>
           </ul>

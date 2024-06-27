@@ -11,9 +11,9 @@ import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { FrontendRoutes } from "@/routes";
 import { useRouter } from "next/navigation";
-import { setAuthToken } from "@/data/client/token";
 import { useState } from "react";
 import Modal from "../common/modal";
+import { useAuth } from "@/hooks/use-auth";
 
 // Define the form schema using Zod
 const signInSchema = z.object({
@@ -38,6 +38,7 @@ const SignInForm: React.FC = () => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
+  const { clientLogin } = useAuth();
   const router = useRouter();
 
   const handleLoginModal = () => {
@@ -48,7 +49,7 @@ const SignInForm: React.FC = () => {
     try {
       const response = await login(data.email, data.password);
       if (response.status) {
-        setAuthToken(response.data.token.toString());
+        clientLogin(response.data.token.toString());
         router.push(FrontendRoutes.HOME);
       }
     } catch (error) {

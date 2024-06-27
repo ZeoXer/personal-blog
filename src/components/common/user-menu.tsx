@@ -5,16 +5,17 @@ import { FrontendRoutes } from "../../routes";
 import { useEffect, useRef, useState } from "react";
 import { useUser } from "../../hooks/use-user";
 import Link from "next/link";
-import { clearAuthToken, isAuthenticated } from "@/data/client/token";
 import { useRouter } from "next/navigation";
 import { useImage } from "@/hooks/use-image";
 import Image from "next/image";
+import { useAuth } from "@/hooks/use-auth";
 
 const UserMenu = () => {
   const { isDarkMode } = useDarkMode();
   const { username } = useUser();
   const { avatar, setAvatar } = useImage();
   const [isMenuShow, setIsMenuShow] = useState(false);
+  const { isLogin, clientLogout } = useAuth();
   const menu = useRef<HTMLButtonElement>(null);
   const router = useRouter();
 
@@ -66,7 +67,7 @@ const UserMenu = () => {
           isDarkMode ? "bg-gray-900 text-white" : "bg-white border-gray-900"
         )}
       >
-        {isAuthenticated() ? (
+        {isLogin ? (
           <>
             <li
               className={clsx(
@@ -101,8 +102,8 @@ const UserMenu = () => {
             >
               <p
                 onClick={() => {
-                  clearAuthToken();
                   setAvatar("");
+                  clientLogout();
                   router.push(FrontendRoutes.HOME);
                 }}
                 className="block"

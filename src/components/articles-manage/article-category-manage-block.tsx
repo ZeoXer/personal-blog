@@ -109,13 +109,6 @@ const ArticleCategoryManageBlock = ({ item }: { item: ArticleCategory }) => {
         )}
       >
         <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
-        <li className="py-2">文章1</li>
       </ul>
     </>
   );

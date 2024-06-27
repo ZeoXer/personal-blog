@@ -4,6 +4,7 @@ import { ReactNode, forwardRef } from "react";
 
 type InputProps = {
   label?: string;
+  placeholder?: string;
   type?: "text" | "password" | "email";
   icon?: ReactNode;
   inputClassName?: string;
