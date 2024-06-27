@@ -1,20 +1,31 @@
 "use client";
 
 import Input from "../form-fields/input";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Textarea from "../form-fields/textarea";
 import MarkdownDisplay from "../common/markdown-display";
 import clsx from "clsx";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import Select from "../form-fields/select";
+import { ArticleCategory } from "@/types/article";
+import { getAllArticleCategory } from "@/data/article";
 
 const ArticleWrite = () => {
+  const [allCategory, setAllCategory] = useState([] as ArticleCategory[]);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const { isDarkMode } = useDarkMode();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const catList = ["React", "Vue", "Angular", "Svelte", "Ember", "Backbone"];
+  const handleGetAllArticleCategory = async () => {
+    const { status, data } = await getAllArticleCategory();
+    if (status) setAllCategory(data);
+  };
+
+  useEffect(() => {
+    handleGetAllArticleCategory();
+  }, []);
 
   return (
     <main>
@@ -27,7 +38,7 @@ const ArticleWrite = () => {
         />
         <div className="justify-end gap-6 hidden md:flex md:items-center">
           <Select
-            optionList={catList}
+            optionList={allCategory.map((category) => category.category_name)}
             placeholder="選擇文章分類"
             value={category}
             onChange={(option) => setCategory(option)}
@@ -54,6 +65,7 @@ const ArticleWrite = () => {
       <section className="text-2xl grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Textarea
+            ref={textareaRef}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="文章內容..."

@@ -22,7 +22,19 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     const tabKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
       e.preventDefault();
-      alert("tab")
+      if (ref && "current" in ref && ref.current) {
+        // 從游標位置切開字串成兩邊
+        const startPos = ref.current.selectionStart;
+        const endPos = ref.current.selectionEnd;
+        const textBefore = ref.current.value.substring(0, startPos);
+        const textAfter = ref.current.value.substring(endPos);
+        // 在兩個子字串中間插入兩個空格
+        const newText = textBefore + "  " + textAfter;
+        ref.current.value = newText;
+        // 把游標移到兩個空格之後
+        const newPos = startPos + 2;
+        ref.current.setSelectionRange(newPos, newPos);
+      }
     };
 
     const handleSpecialKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
