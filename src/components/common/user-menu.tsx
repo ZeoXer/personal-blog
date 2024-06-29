@@ -13,7 +13,7 @@ import { useAuth } from "@/hooks/use-auth";
 const UserMenu = () => {
   const { isDarkMode } = useDarkMode();
   const { username } = useUser();
-  const { avatar, setAvatar } = useImage();
+  const { avatar, setAvatar, getAvatar } = useImage();
   const [isMenuShow, setIsMenuShow] = useState(false);
   const { isLogin, clientLogout } = useAuth();
   const menu = useRef<HTMLButtonElement>(null);
@@ -38,6 +38,12 @@ const UserMenu = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (isLogin && !avatar) {
+      getAvatar();
+    }
+  }, [isLogin, avatar, getAvatar]);
 
   return (
     <button className="relative" onClick={toggleMenu} ref={menu}>

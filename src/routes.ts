@@ -5,5 +5,6 @@ export const FrontendRoutes = {
   PROFILE: "/profile",
   ARTICLE: "/article",
   ARTICLES: "/articles",
+  BLOG: "/blog",
   NOT_FOUND: "*",
 };

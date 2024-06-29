@@ -30,10 +30,7 @@ const MarkdownDisplay = ({ content }: { content: string }) => {
     <Markdown
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeKatex]}
-      className={clsx(
-        "text-xl h-[80vh] overflow-y-scroll border-2 leading-relaxed rounded-lg px-4 py-2",
-        !isDarkMode && "border-gray-900"
-      )}
+      className="text-xl leading-relaxed"
       components={{
         h1(props) {
           const { children, ...rest } = props;

@@ -1,10 +1,18 @@
+import { ArticleCategory } from "@/types/article";
 import { createContext, useContext, useState } from "react";
 
+type Category = {
+  id: number;
+  name: string;
+};
+
 type ArticleCategoryMainContextProps = {
-  currentCategory: number;
+  currentCategory: Category;
   isDetailOpen: boolean;
-  setCurrentCategory: (category: number) => void;
+  allCategory: ArticleCategory[];
+  setCurrentCategory: (category: Category) => void;
   setIsDetailOpen: (isOpen: boolean) => void;
+  setAllCategory: (categories: ArticleCategory[]) => void;
 };
 
 const ArticleCategoryMainContext = createContext<
@@ -12,14 +20,17 @@ const ArticleCategoryMainContext = createContext<
 >(undefined);
 
 const ArticleCategoryMainProvider = ({ children }: { children: any }) => {
-  const [currentCategory, setCurrentCategory] = useState(-1);
+  const [currentCategory, setCurrentCategory] = useState({ id: -1, name: "" });
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [allCategory, setAllCategory] = useState<ArticleCategory[]>([]);
 
   const valueToShare: ArticleCategoryMainContextProps = {
     currentCategory,
     isDetailOpen,
+    allCategory,
     setCurrentCategory,
     setIsDetailOpen,
+    setAllCategory,
   };
 
   return (

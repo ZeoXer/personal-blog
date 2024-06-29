@@ -5,6 +5,7 @@ import Header from "@/components/common/header";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import clsx from "clsx";
 import { AuthProvider } from "../hooks/use-auth";
+import FullScreenLoader from "@/components/common/fullscreen-loader";
 
 export default function RootLayout({
   children,
@@ -24,6 +25,7 @@ export default function RootLayout({
         <body style={{ fontFamily: "openhuninn" }}>
           <Header />
           {children}
+          <FullScreenLoader />
         </body>
       </html>
     </AuthProvider>

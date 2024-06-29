@@ -1,5 +1,3 @@
-"use client";
-
 import { useAtom } from "jotai";
 import { getMe } from "../data/auth";
 import { atomWithStorage } from "jotai/utils";

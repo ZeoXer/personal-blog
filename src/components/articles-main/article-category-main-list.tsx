@@ -1,55 +1,39 @@
-import React from "react";
-import ArticleCategoryMain from "./article-category-main";
+import React, { useCallback, useEffect } from "react";
+import ArticleCategoryMainBlock from "./article-category-main-block";
+import { useArticleCategoryMain } from "./use-article-category-main";
+import { getAllArticleCategory } from "@/data/article";
+import { useIsLoading } from "@/hooks/use-is-loading";
 import ArticleCategoryMainDetail from "./article-category-main-detail";
-import { AcademicCapIcon } from "@heroicons/react/24/outline";
-import { ArticleCategoryMainProvider } from "./use-article-category-main";
-
-const fakeCatList: { id: number; name: string; icon?: any }[] = [
-  {
-    id: 1,
-    name: "ReactJS",
-  },
-  {
-    id: 2,
-    name: "NextJS",
-  },
-  {
-    id: 3,
-    name: "TailwindCSS",
-  },
-  {
-    id: 4,
-    name: "NodeJS",
-  },
-  {
-    id: 5,
-    name: "GraphQL",
-  },
-  {
-    id: 6,
-    name: "TypeScript",
-  },
-];
 
 const ArticleCategoryMainList: React.FC = () => {
+  const { allCategory, setAllCategory } = useArticleCategoryMain();
+  const { setIsLoading } = useIsLoading();
+
+  const handleGetAllArticleCategory = useCallback(async () => {
+    setIsLoading(true);
+    const { status, data } = await getAllArticleCategory();
+    setIsLoading(false);
+
+    if (status) {
+      setAllCategory(data);
+    }
+  }, [setIsLoading, setAllCategory]);
+
+  useEffect(() => {
+    handleGetAllArticleCategory();
+  }, [handleGetAllArticleCategory]);
+
   return (
-    <ArticleCategoryMainProvider>
+    <>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {fakeCatList.map((cat) => {
+        {allCategory.map((category) => {
           return (
-            <ArticleCategoryMain
-              key={cat.id}
-              id={cat.id}
-              title={cat.name}
-              icon={
-                cat.icon ? cat.icon : <AcademicCapIcon className="size-20" />
-              }
-            />
+            <ArticleCategoryMainBlock key={category.id} category={category} />
           );
         })}
       </div>
-      <ArticleCategoryMainDetail />
-    </ArticleCategoryMainProvider>
+      {/* <ArticleCategoryMainDetail /> */}
+    </>
   );
 };
 
