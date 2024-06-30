@@ -37,7 +37,7 @@ const BackToTop: React.FC = () => {
       <ArrowUpCircleIcon
         className={clsx(
           "w-12 md:w-16 cursor-pointer md:active:scale-90",
-          isDarkMode ? "text-green-700" : "text-green-300"
+          isDarkMode ? "text-white" : "text-gray-900"
         )}
       />
     </button>

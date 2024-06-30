@@ -6,6 +6,7 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import clsx from "clsx";
 import { AuthProvider } from "../hooks/use-auth";
 import FullScreenLoader from "@/components/common/fullscreen-loader";
+import BackToTop from "@/components/common/back-to-top";
 
 export default function RootLayout({
   children,
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Header />
           {children}
           <FullScreenLoader />
+          <BackToTop />
         </body>
       </html>
     </AuthProvider>

@@ -41,19 +41,44 @@ const MarkdownDisplay = ({ content }: { content: string }) => {
           );
         },
         h2(props) {
-          return <h2 style={hTagStyle("36px")} {...props} />;
+          const { children, ...rest } = props;
+          return (
+            <h2 style={hTagStyle("36px")} id={children?.toString()} {...rest}>
+              {children}
+            </h2>
+          );
         },
         h3(props) {
-          return <h3 style={hTagStyle("32px")} {...props} />;
+          const { children, ...rest } = props;
+          return (
+            <h3 style={hTagStyle("32px")} id={children?.toString()} {...rest}>
+              {children}
+            </h3>
+          );
         },
         h4(props) {
-          return <h4 style={hTagStyle("28px")} {...props} />;
+          const { children, ...rest } = props;
+          return (
+            <h4 style={hTagStyle("28px")} id={children?.toString()} {...rest}>
+              {children}
+            </h4>
+          );
         },
         h5(props) {
-          return <h5 style={hTagStyle("24px")} {...props} />;
+          const { children, ...rest } = props;
+          return (
+            <h5 style={hTagStyle("24px")} id={children?.toString()} {...rest}>
+              {children}
+            </h5>
+          );
         },
         h6(props) {
-          return <h6 style={hTagStyle("23px")} {...props} />;
+          const { children, ...rest } = props;
+          return (
+            <h6 style={hTagStyle("23px")} id={children?.toString()} {...rest}>
+              {children}
+            </h6>
+          );
         },
         p(props) {
           return <p className="mb-[12px]" {...props} />;
