@@ -15,6 +15,11 @@ const nextConfig = {
         port: '8080',
         pathname: '/uploadImgs/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'zeoxer.com',
+        pathname: '/uploadImgs/**',
+      },
     ],
   },
 };
