@@ -10,6 +10,7 @@ import { getArticlesByCategory } from "@/data/article";
 import Link from "next/link";
 import { FrontendRoutes } from "@/routes";
 import { formatDateString } from "@/utils";
+import { useRouter } from "next/navigation";
 
 const ArticleCategoryMainDetail = ({
   category,
@@ -23,6 +24,7 @@ const ArticleCategoryMainDetail = ({
   const [articles, setArticles] = useState([] as Article[]);
   const [alreadyFetched, setAlreadyFetched] = useState(false);
   const detail = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const handleGetArticles = useCallback(async () => {
     setIsLoading(true);
@@ -109,12 +111,15 @@ const ArticleCategoryMainDetail = ({
                     key={article.id}
                     className="rounded-lg p-3 flex items-center justify-between"
                   >
-                    <Link
-                      href={`${FrontendRoutes.BLOG}/${article.id}`}
+                    <button
+                      onClick={() => {
+                        setIsDetailOpen(false);
+                        router.push(`${FrontendRoutes.BLOG}/${article.id}`);
+                      }}
                       className="md:hover:underline"
                     >
                       {article.title}
-                    </Link>
+                    </button>
                     <span className="hidden md:inline-block">
                       {formatDateString(article.updated_at)}
                     </span>
