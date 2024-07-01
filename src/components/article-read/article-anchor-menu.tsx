@@ -46,7 +46,7 @@ const ArticleAnchorMenu = ({ article }: { article: Article }) => {
   }, [parseContentToHTMLAndGetHTags]);
 
   return (
-    <aside className="hidden md:block w-1/6">
+    <aside className="hidden md:block w-[10%] 2xl:w-1/6">
       <div className="sticky top-4">
         <h3
           className={clsx(
