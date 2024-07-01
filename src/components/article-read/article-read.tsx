@@ -34,7 +34,7 @@ const ArticleRead = ({ articleId }: { articleId: number }) => {
   }, [handleGetArticle]);
 
   return (
-    <main className="flex justify-between gap-8 px-0 md:px-4 pt-4">
+    <main className="flex justify-between md:gap-6 2xl:gap-8 px-0 md:px-2 2xl:px-4 pt-4">
       {article && <ArticleSameSeriesMenu article={article} />}
       <section className="w-11/12 md:w-2/3 mx-auto">
         <div
