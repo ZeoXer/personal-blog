@@ -37,7 +37,7 @@ const ArticleSameSeriesMenu = ({ article }: { article: Article }) => {
             !isDarkMode && "border-gray-900"
           )}
         >
-          其他系列文章
+          系列文章
         </h3>
         <ul>
           {articlesInSameCategory.map((artic) => {
