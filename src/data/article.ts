@@ -22,6 +22,14 @@ export async function getAllArticleCategory() {
   return response;
 }
 
+export async function getAllPublicArticleCategory(authorName: string) {
+  const response = await HttpClient.get<APIResponse<ArticleCategory[]>>(
+    `${API_ENDPOINTS.GET_ALL_PUBLIC_CATEGORY}/${authorName}`
+  );
+
+  return response;
+}
+
 export async function updateArticleCategory(
   categoryId: number,
   categoryName: string
@@ -61,6 +69,14 @@ export async function getArticle(articleId: number) {
   return response;
 }
 
+export async function getPublicArticle(articleId: number, authorName: string) {
+  const response = await HttpClient.get<APIResponse<Article>>(
+    `${API_ENDPOINTS.GET_PUBLIC_ARTICLE}/${authorName}/${articleId}`
+  );
+
+  return response;
+}
+
 export async function updateArticle(
   articleId: number,
   title: string,
@@ -82,6 +98,17 @@ export async function updateArticle(
 export async function getArticlesByCategory(categoryId: number) {
   const response = await HttpClient.get<APIResponse<Article[]>>(
     `${API_ENDPOINTS.GET_ARTICLES_BY_CATEGORY}/${categoryId}`
+  );
+
+  return response;
+}
+
+export async function getPublicArticlesByCategory(
+  categoryId: number,
+  authorName: string
+) {
+  const response = await HttpClient.get<APIResponse<Article[]>>(
+    `${API_ENDPOINTS.GET_PUBLIC_ARTICLES_BY_CATEGORY}/${authorName}/${categoryId}`
   );
 
   return response;

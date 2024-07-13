@@ -1,6 +1,6 @@
 "use client";
 
-import { getArticle } from "@/data/article";
+import { getArticle, getPublicArticle } from "@/data/article";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useIsLoading } from "@/hooks/use-is-loading";
 import { Article } from "@/types/article";
@@ -14,7 +14,13 @@ import Image from "next/image";
 import ArticleSameSeriesMenu from "./article-same-series-menu";
 import ArticleAnchorMenu from "./article-anchor-menu";
 
-const ArticleRead = ({ articleId }: { articleId: number }) => {
+const ArticleRead = ({
+  authorName = "",
+  articleId,
+}: {
+  authorName?: string;
+  articleId: number;
+}) => {
   const [article, setArticle] = useState<Article | null>(null);
 
   const { avatar } = useImage();
@@ -24,10 +30,12 @@ const ArticleRead = ({ articleId }: { articleId: number }) => {
   const handleGetArticle = useCallback(async () => {
     if (!articleId) return;
     setIsLoading(true);
-    const { status, data } = await getArticle(articleId);
+    const { status, data } = authorName
+      ? await getPublicArticle(articleId, authorName)
+      : await getArticle(articleId);
     setIsLoading(false);
     if (status) setArticle(data);
-  }, [articleId, setIsLoading]);
+  }, [articleId, authorName, setIsLoading]);
 
   useEffect(() => {
     handleGetArticle();
@@ -35,7 +43,9 @@ const ArticleRead = ({ articleId }: { articleId: number }) => {
 
   return (
     <main className="flex justify-between md:gap-6 2xl:gap-8 px-0 md:px-2 2xl:px-4 pt-4">
-      {article && <ArticleSameSeriesMenu article={article} />}
+      {article && (
+        <ArticleSameSeriesMenu article={article} authorName={authorName} />
+      )}
       <section className="w-11/12 md:w-2/3 mx-auto">
         <div
           className={clsx("border-b-2 pb-4", !isDarkMode && "border-gray-900")}

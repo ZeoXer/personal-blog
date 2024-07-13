@@ -26,6 +26,10 @@ const checkStatus = (status: number) => {
 };
 
 Axios.interceptors.request.use((config) => {
+  if (typeof window === "undefined") {
+    return config;
+  }
+
   const token = getAuthToken();
 
   if (token) {

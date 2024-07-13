@@ -2,11 +2,9 @@ import { fetchAvatar, removeAvatar, uploadAvatar } from "@/data/image";
 import { atom, useAtom } from "jotai";
 import { ChangeEvent } from "react";
 
-const imageUrlsAtom = atom([] as string[]);
 const avatarAtom = atom("");
 
 export const useImage = () => {
-  const [imgUrls, setImgUrls] = useAtom(imageUrlsAtom);
   const [avatar, setAvatar] = useAtom(avatarAtom);
 
   const addAvatar = async (e: ChangeEvent) => {

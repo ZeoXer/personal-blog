@@ -1,4 +1,7 @@
-import { getArticlesByCategory } from "@/data/article";
+import {
+  getArticlesByCategory,
+  getPublicArticlesByCategory,
+} from "@/data/article";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useIsLoading } from "@/hooks/use-is-loading";
 import { FrontendRoutes } from "@/routes";
@@ -7,7 +10,13 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
-const ArticleSameSeriesMenu = ({ article }: { article: Article }) => {
+const ArticleSameSeriesMenu = ({
+  article,
+  authorName,
+}: {
+  article: Article;
+  authorName: string;
+}) => {
   const [articlesInSameCategory, setArticlesInSameCategory] = useState(
     [] as Article[]
   );
@@ -18,11 +27,13 @@ const ArticleSameSeriesMenu = ({ article }: { article: Article }) => {
     if (!article?.category_id) return;
     setIsLoading(true);
 
-    const { status, data } = await getArticlesByCategory(article.category_id);
+    const { status, data } = authorName
+      ? await getPublicArticlesByCategory(article.category_id, authorName)
+      : await getArticlesByCategory(article.category_id);
     setIsLoading(false);
 
     if (status) setArticlesInSameCategory(data);
-  }, [article?.category_id, setIsLoading]);
+  }, [article?.category_id, authorName, setIsLoading]);
 
   useEffect(() => {
     handleGetArticlesByCategory();

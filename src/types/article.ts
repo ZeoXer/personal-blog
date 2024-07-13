@@ -14,5 +14,3 @@ export type Article = {
   updated_at: string;
   is_published: boolean;
 };
-
-export type PanelArticle = {};
