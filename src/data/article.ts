@@ -1,7 +1,7 @@
 import { APIResponse } from "@/types/auth";
 import { HttpClient } from "./client/http-client";
 import { API_ENDPOINTS } from "./client/endpoints";
-import { Article, ArticleCategory } from "@/types/article";
+import { Article, ArticleAnalysis, ArticleCategory } from "@/types/article";
 
 export async function addArticleCategory(categoryName: string) {
   const response = await HttpClient.post<APIResponse<unknown>>(
@@ -109,6 +109,14 @@ export async function getPublicArticlesByCategory(
 ) {
   const response = await HttpClient.get<APIResponse<Article[]>>(
     `${API_ENDPOINTS.GET_PUBLIC_ARTICLES_BY_CATEGORY}/${authorName}/${categoryId}`
+  );
+
+  return response;
+}
+
+export async function getArticleAnalysis() {
+  const response = await HttpClient.get<APIResponse<ArticleAnalysis>>(
+    API_ENDPOINTS.GET_ARTICLE_ANALYSIS
   );
 
   return response;

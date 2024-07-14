@@ -6,8 +6,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Article, ArticleCategory } from "@/types/article";
 import { useIsLoading } from "@/hooks/use-is-loading";
-import { getArticlesByCategory } from "@/data/article";
-import Link from "next/link";
+import {
+  getArticlesByCategory,
+  getPublicArticlesByCategory,
+} from "@/data/article";
 import { FrontendRoutes } from "@/routes";
 import { formatDateString } from "@/utils";
 import { useRouter } from "next/navigation";
@@ -19,8 +21,13 @@ const ArticleCategoryMainDetail = ({
 }) => {
   const { isDarkMode } = useDarkMode();
   const { setIsLoading } = useIsLoading();
-  const { isDetailOpen, currentCategory, setIsDetailOpen, setCurrentCategory } =
-    useArticleCategoryMain();
+  const {
+    authorName,
+    isDetailOpen,
+    currentCategory,
+    setIsDetailOpen,
+    setCurrentCategory,
+  } = useArticleCategoryMain();
   const [articles, setArticles] = useState([] as Article[]);
   const [alreadyFetched, setAlreadyFetched] = useState(false);
   const detail = useRef<HTMLDivElement>(null);
@@ -28,13 +35,15 @@ const ArticleCategoryMainDetail = ({
 
   const handleGetArticles = useCallback(async () => {
     setIsLoading(true);
-    const { status, data } = await getArticlesByCategory(category.id);
+    const { status, data } = authorName
+      ? await getPublicArticlesByCategory(category.id, authorName)
+      : await getArticlesByCategory(category.id);
     setIsLoading(false);
     if (status) {
       setArticles(data);
       setAlreadyFetched(true);
     }
-  }, [category, setIsLoading]);
+  }, [category, authorName, setIsLoading]);
 
   useEffect(() => {
     if (isDetailOpen) {
@@ -114,7 +123,11 @@ const ArticleCategoryMainDetail = ({
                     <button
                       onClick={() => {
                         setIsDetailOpen(false);
-                        router.push(`${FrontendRoutes.BLOG}/${article.id}`);
+                        router.push(
+                          authorName
+                            ? `${FrontendRoutes.PUBLISH}/${authorName}/${article.id}`
+                            : `${FrontendRoutes.BLOG}/${article.id}`
+                        );
                       }}
                       className="md:hover:underline"
                     >

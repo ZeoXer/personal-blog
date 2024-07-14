@@ -25,6 +25,14 @@ export async function fetchAvatar() {
   return response;
 }
 
+export async function fetchPublicAvatar(authorName: string) {
+  const response = await HttpClient.get<APIResponse<Avatar>>(
+    `${API_ENDPOINTS.GET_PUBLIC_AVATAR}/${authorName}`
+  );
+
+  return response;
+}
+
 export async function removeAvatar() {
   const response = await HttpClient.delete<APIResponse<unknown>>(
     API_ENDPOINTS.REMOVE_AVATAR

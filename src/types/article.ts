@@ -14,3 +14,8 @@ export type Article = {
   updated_at: string;
   is_published: boolean;
 };
+
+export type ArticleAnalysis = {
+  article_amount: number;
+  article_category_amount: number;
+};

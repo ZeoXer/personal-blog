@@ -12,10 +12,13 @@ import Image from "next/image";
 import { useImage } from "@/hooks/use-image";
 import Modal from "../common/modal";
 import { useAuth } from "@/hooks/use-auth";
+import { getArticleAnalysis } from "@/data/article";
 
 const PersonalInfo: React.FC = () => {
   const [isRemoveAvatarModalOpen, setIsRemoveAvatarModalOpen] = useState(false);
   const [isUploadAvatarModalOpen, setIsUploadAvatarModalOpen] = useState(false);
+  const [articleAmount, setArticleAmount] = useState(0);
+  const [articleCategoryAmount, setArticleCategoryAmount] = useState(0);
   const { username, email } = useUser();
   const { isDarkMode } = useDarkMode();
   const { isLogin } = useAuth();
@@ -46,9 +49,18 @@ const PersonalInfo: React.FC = () => {
     }
   };
 
+  const handleGetArticleAnalysis = async () => {
+    const { status, data } = await getArticleAnalysis();
+    if (status) {
+      setArticleAmount(data.article_amount);
+      setArticleCategoryAmount(data.article_category_amount);
+    }
+  };
+
   useEffect(() => {
     if (isLogin) {
       getAvatar();
+      handleGetArticleAnalysis();
     }
   }, [isLogin, getAvatar]);
 
@@ -143,7 +155,7 @@ const PersonalInfo: React.FC = () => {
               >
                 <h4>分類總數</h4>
                 <p className="text-3xl">
-                  <NumberCounter endNumber={5} />
+                  <NumberCounter endNumber={articleCategoryAmount} />
                 </p>
               </div>
               <div
@@ -154,7 +166,7 @@ const PersonalInfo: React.FC = () => {
               >
                 <h4>文章總數</h4>
                 <p className="text-3xl">
-                  <NumberCounter endNumber={20} />
+                  <NumberCounter endNumber={articleAmount} />
                 </p>
               </div>
             </div>

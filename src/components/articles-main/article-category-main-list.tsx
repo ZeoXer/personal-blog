@@ -1,23 +1,29 @@
+"use client";
+
 import React, { useCallback, useEffect } from "react";
 import ArticleCategoryMainBlock from "./article-category-main-block";
 import { useArticleCategoryMain } from "./use-article-category-main";
-import { getAllArticleCategory } from "@/data/article";
+import {
+  getAllArticleCategory,
+  getAllPublicArticleCategory,
+} from "@/data/article";
 import { useIsLoading } from "@/hooks/use-is-loading";
-import ArticleCategoryMainDetail from "./article-category-main-detail";
 
-const ArticleCategoryMainList: React.FC = () => {
-  const { allCategory, setAllCategory } = useArticleCategoryMain();
+const ArticleCategoryMainList = () => {
+  const { authorName, allCategory, setAllCategory } = useArticleCategoryMain();
   const { setIsLoading } = useIsLoading();
 
   const handleGetAllArticleCategory = useCallback(async () => {
     setIsLoading(true);
-    const { status, data } = await getAllArticleCategory();
+    const { status, data } = authorName
+      ? await getAllPublicArticleCategory(authorName)
+      : await getAllArticleCategory();
     setIsLoading(false);
 
     if (status) {
       setAllCategory(data);
     }
-  }, [setIsLoading, setAllCategory]);
+  }, [authorName, setIsLoading, setAllCategory]);
 
   useEffect(() => {
     handleGetAllArticleCategory();
@@ -32,7 +38,6 @@ const ArticleCategoryMainList: React.FC = () => {
           );
         })}
       </div>
-      {/* <ArticleCategoryMainDetail /> */}
     </>
   );
 };

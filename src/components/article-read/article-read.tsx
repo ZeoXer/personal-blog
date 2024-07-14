@@ -22,8 +22,9 @@ const ArticleRead = ({
   articleId: number;
 }) => {
   const [article, setArticle] = useState<Article | null>(null);
-
+  const [authorAvatar, setAuthorAvatar] = useState("");
   const { avatar } = useImage();
+  const { getPublicAvatar } = useImage();
   const { isDarkMode } = useDarkMode();
   const { setIsLoading } = useIsLoading();
 
@@ -37,9 +38,16 @@ const ArticleRead = ({
     if (status) setArticle(data);
   }, [articleId, authorName, setIsLoading]);
 
+  const handleGetAuthorAvatar = useCallback(async () => {
+    if (!authorName) return;
+    const response = await getPublicAvatar(authorName);
+    if (response) setAuthorAvatar(response);
+  }, [authorName, getPublicAvatar]);
+
   useEffect(() => {
     handleGetArticle();
-  }, [handleGetArticle]);
+    handleGetAuthorAvatar();
+  }, [handleGetArticle, handleGetAuthorAvatar]);
 
   return (
     <main className="flex justify-between md:gap-6 2xl:gap-8 px-0 md:px-2 2xl:px-4 pt-4">
@@ -56,7 +64,7 @@ const ArticleRead = ({
           <h3 className="text-2xl mb-1 flex items-center gap-2">
             <div className="size-6 md:size-8 relative rounded-full">
               <Image
-                src={avatar}
+                src={authorAvatar || avatar}
                 alt="avatar"
                 fill
                 sizes="48px"

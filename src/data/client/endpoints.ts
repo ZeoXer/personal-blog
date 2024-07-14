@@ -4,6 +4,7 @@ export const API_ENDPOINTS = {
   ME: "/user/me",
   UPLOAD_AVATAR: "/image/uploadAvatar",
   GET_AVATAR: "/image/getAvatar",
+  GET_PUBLIC_AVATAR: "/image/public/getAvatar",
   REMOVE_AVATAR: "/image/removeAvatar",
   ADD_CATEGORY: "/article/addArticleCategory",
   GET_ALL_CATEGORY: "/article/getAllArticleCategory",
@@ -15,4 +16,5 @@ export const API_ENDPOINTS = {
   UPDATE_ARTICLE: "/article/updateArticle",
   GET_ARTICLES_BY_CATEGORY: "/article/getArticlesByCategory",
   GET_PUBLIC_ARTICLES_BY_CATEGORY: "/article/public/getArticlesByCategory",
+  GET_ARTICLE_ANALYSIS: "/article/getArticleAnalysis",
 };

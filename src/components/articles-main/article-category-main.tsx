@@ -1,9 +1,9 @@
 import ArticleCategoryMainList from "./article-category-main-list";
 import { ArticleCategoryMainProvider } from "./use-article-category-main";
 
-const ArticleCategoryMain = () => {
+const ArticleCategoryMain = ({ authorName }: { authorName?: string }) => {
   return (
-    <ArticleCategoryMainProvider>
+    <ArticleCategoryMainProvider author={authorName}>
       <ArticleCategoryMainList />
     </ArticleCategoryMainProvider>
   );

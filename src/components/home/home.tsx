@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   const { avatar, getAvatar } = useImage();
 
   useEffect(() => {
-    if (isLogin && (!username || !avatar)) {
+    if (isLogin) {
       fetchUser();
       getAvatar();
     }

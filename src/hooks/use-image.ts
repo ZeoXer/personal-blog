@@ -1,6 +1,11 @@
-import { fetchAvatar, removeAvatar, uploadAvatar } from "@/data/image";
+import {
+  fetchAvatar,
+  fetchPublicAvatar,
+  removeAvatar,
+  uploadAvatar,
+} from "@/data/image";
 import { atom, useAtom } from "jotai";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 
 const avatarAtom = atom("");
 
@@ -27,6 +32,13 @@ export const useImage = () => {
     return response;
   };
 
+  const getPublicAvatar = useCallback(async (authorName: string) => {
+    const response = await fetchPublicAvatar(authorName);
+    if (!response.status) return "";
+
+    return response.data.path;
+  }, []);
+
   const deleteAvatar = async () => {
     const response = await removeAvatar();
     if (response.status) {
@@ -41,6 +53,7 @@ export const useImage = () => {
     setAvatar,
     addAvatar,
     getAvatar,
+    getPublicAvatar,
     deleteAvatar,
   };
 };

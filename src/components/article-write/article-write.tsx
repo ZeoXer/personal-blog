@@ -17,11 +17,13 @@ import {
 import { useRouter } from "next/navigation";
 import { FrontendRoutes } from "@/routes";
 import { useIsLoading } from "@/hooks/use-is-loading";
+import { BookOpenIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 
 const ArticleWrite = ({ articleId }: { articleId?: number }) => {
   const [allCategory, setAllCategory] = useState([] as ArticleCategory[]);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  const [isPublished, setIsPublished] = useState(false);
   const [content, setContent] = useState("");
   const { isDarkMode } = useDarkMode();
   const router = useRouter();
@@ -95,6 +97,7 @@ const ArticleWrite = ({ articleId }: { articleId?: number }) => {
     // 將文章的標題、內容和分類帶入
     setTitle(data.title);
     setContent(data.content);
+    setIsPublished(data.is_published);
     setCategory(categoryName);
     setIsLoading(false);
   }, [articleId, allCategory, setIsLoading]);
@@ -123,11 +126,17 @@ const ArticleWrite = ({ articleId }: { articleId?: number }) => {
           />
           <button
             className={clsx(
-              "text-xl px-7 py-2 rounded-lg hidden md:block md:active:scale-90 transition",
-              isDarkMode ? "bg-orange-700" : "bg-orange-300"
+              "text-xl w-32 py-2 rounded-lg md:active:scale-90 transition border-2 flex items-center gap-1 justify-center",
+              !isDarkMode && "border-gray-900"
             )}
+            onClick={() => setIsPublished(!isPublished)}
           >
-            圖片
+            {isPublished ? (
+              <BookOpenIcon className="w-7" />
+            ) : (
+              <LockClosedIcon className="w-7" />
+            )}
+            {isPublished ? "公開" : "不公開"}
           </button>
           <button
             className={clsx(
