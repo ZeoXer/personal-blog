@@ -81,6 +81,7 @@ export async function updateArticle(
   articleId: number,
   title: string,
   content: string,
+  isPublished: boolean,
   categoryId: number
 ) {
   const response = await HttpClient.put<APIResponse<unknown>>(
@@ -88,6 +89,7 @@ export async function updateArticle(
     {
       title,
       content,
+      is_published: isPublished,
       category_id: categoryId,
     }
   );

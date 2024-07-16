@@ -72,6 +72,7 @@ const ArticleWrite = ({ articleId }: { articleId?: number }) => {
       articleId,
       title,
       content,
+      isPublished,
       categoryId
     );
     setIsLoading(false);
