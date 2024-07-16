@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
   GET_AVATAR: "/image/getAvatar",
   GET_PUBLIC_AVATAR: "/image/public/getAvatar",
   REMOVE_AVATAR: "/image/removeAvatar",
+  UPLOAD_IMAGE: "/image/uploadImage",
   ADD_CATEGORY: "/article/addArticleCategory",
   GET_ALL_CATEGORY: "/article/getAllArticleCategory",
   GET_ALL_PUBLIC_CATEGORY: "/article/public/getAllArticleCategory",

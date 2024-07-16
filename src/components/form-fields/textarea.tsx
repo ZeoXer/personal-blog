@@ -2,6 +2,7 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import { KeyboardEvent } from "react";
 import clsx from "clsx";
 import { forwardRef } from "react";
+import { useImage } from "@/hooks/use-image";
 
 type TextareaProps = {
   label?: string;
@@ -19,9 +20,9 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     ref
   ) => {
     const { isDarkMode } = useDarkMode();
+    const { addImage } = useImage();
 
-    const tabKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-      e.preventDefault();
+    const insertContent = (content: string) => {
       if (ref && "current" in ref && ref.current) {
         // 從游標位置切開字串成兩邊
         const startPos = ref.current.selectionStart;
@@ -29,12 +30,17 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         const textBefore = ref.current.value.substring(0, startPos);
         const textAfter = ref.current.value.substring(endPos);
         // 在兩個子字串中間插入兩個空格
-        const newText = textBefore + "  " + textAfter;
+        const newText = textBefore + content + textAfter;
         ref.current.value = newText;
         // 把游標移到兩個空格之後
         const newPos = startPos + 2;
         ref.current.setSelectionRange(newPos, newPos);
       }
+    };
+
+    const tabKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      e.preventDefault();
+      insertContent("  ");
     };
 
     const handleSpecialKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -44,6 +50,29 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           break;
         default:
           break;
+      }
+    };
+
+    const handlePaste = async (
+      e: React.ClipboardEvent<HTMLTextAreaElement>
+    ) => {
+      const items = e.clipboardData.items;
+      let file: File | null = null;
+
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.startsWith("image/")) {
+          file = items[i].getAsFile();
+          break;
+        }
+      }
+
+      if (!file) return true;
+
+      const { data, status } = await addImage(file);
+      if (status) {
+        insertContent(`![${data.filename}](${data.path})`);
+      } else {
+        insertContent("Upload failed!");
       }
     };
 
@@ -62,6 +91,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               textareaClassName
             )}
             onKeyDown={handleSpecialKey}
+            onPaste={handlePaste}
           />
         </div>
         {error && (

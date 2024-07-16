@@ -4,3 +4,9 @@ export type Avatar = {
   filename: string;
   path: string;
 };
+
+export type Image = {
+  id: number;
+  filename: string;
+  path: string;
+};

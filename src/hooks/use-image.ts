@@ -3,6 +3,7 @@ import {
   fetchPublicAvatar,
   removeAvatar,
   uploadAvatar,
+  uploadImage,
 } from "@/data/image";
 import { atom, useAtom } from "jotai";
 import { ChangeEvent, useCallback } from "react";
@@ -48,6 +49,14 @@ export const useImage = () => {
     return response;
   };
 
+  const addImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("uploadImage", file);
+    const response = await uploadImage(formData);
+
+    return response;
+  };
+
   return {
     avatar,
     setAvatar,
@@ -55,5 +64,6 @@ export const useImage = () => {
     getAvatar,
     getPublicAvatar,
     deleteAvatar,
+    addImage,
   };
 };
