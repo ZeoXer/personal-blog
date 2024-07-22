@@ -1,5 +1,8 @@
 import ArticleRead from "@/components/article-read/article-read";
 import { getPublicArticle } from "@/data/article";
+import { Article } from "@/types/article";
+import { APIResponse } from "@/types/auth";
+import axios from "axios";
 import { Metadata } from "next";
 
 type Props = {
@@ -9,31 +12,25 @@ type Props = {
   };
 };
 
-export const metadata: Metadata = {
-  title: "閱讀文章",
-  description: "閱讀文章",
-};
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { articleId, authorName } = params;
 
-// export async function generateMetadata({ params }: Props): Promise<Metadata> {
-//   const { articleId, authorName } = params;
+  const response = await axios.get<APIResponse<Article>>(
+    `https://zeoxer.com/article/public/getArticle/${authorName}/${articleId}`
+  );
 
-//   const { data, message, status } = await getPublicArticle(
-//     +articleId,
-//     authorName
-//   );
+  if (response.status && response.data.status) {
+    return {
+      title: authorName + " | " + response.data.data.title,
+      description: response.data.data.content.slice(0, 20),
+    };
+  }
 
-//   if (status) {
-//     return {
-//       title: data.title,
-//       description: `Read article by ${params.authorName}`,
-//     };
-//   }
-
-//   return {
-//     title: message,
-//     description: `Read article`,
-//   };
-// }
+  return {
+    title: "閱讀文章",
+    description: `閱讀文章`,
+  };
+}
 
 export default function ReadArticlePage({ params }: Props) {
   return (

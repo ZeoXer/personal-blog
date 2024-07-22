@@ -1,4 +1,18 @@
 import ArticleCategoryMain from "@/components/articles-main/article-category-main";
+import { Metadata } from "next";
+
+type Props = {
+  params: {
+    authorName: string;
+  };
+};
+
+export function generateMetadata({ params }: Props): Metadata {
+  return {
+    title: params.authorName + " 的文章集",
+    description: `閱讀 ${params.authorName} 的文章集`,
+  };
+}
 
 export default function ArticleCategoryPage({
   params,
