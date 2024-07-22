@@ -65,7 +65,11 @@ const ArticleSameSeriesMenu = ({
                 )}
               >
                 <Link
-                  href={`${FrontendRoutes.BLOG}/${artic.id}`}
+                  href={
+                    authorName
+                      ? `${FrontendRoutes.PUBLISH}/${authorName}/${artic.id}`
+                      : `${FrontendRoutes.BLOG}/${artic.id}`
+                  }
                   className="md:hover:underline block transition-all md:hover:translate-x-3 duration-300 truncate"
                 >
                   {artic.title}
