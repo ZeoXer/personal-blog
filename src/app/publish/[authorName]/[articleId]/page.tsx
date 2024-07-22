@@ -1,5 +1,4 @@
 import ArticleRead from "@/components/article-read/article-read";
-import Footer from "@/components/common/footer";
 import { getPublicArticle } from "@/data/article";
 import { Metadata } from "next";
 
@@ -43,7 +42,6 @@ export default function ReadArticlePage({ params }: Props) {
         authorName={params.authorName}
         articleId={+params.articleId}
       />
-      <Footer />
     </div>
   );
 }
