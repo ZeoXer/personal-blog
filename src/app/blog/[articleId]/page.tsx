@@ -1,4 +1,5 @@
 import ArticleRead from "@/components/article-read/article-read";
+import Search from "@/components/search/search";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -6,6 +6,7 @@ import { useImage } from "@/hooks/use-image";
 import { useAuth } from "@/hooks/use-auth";
 import ArticleCategoryMain from "../articles-main/article-category-main";
 import NotLoginIntro from "./not-login-intro";
+import Search from "../search/search";
 
 const Home: React.FC = () => {
   const { username, fetchUser } = useUser();
@@ -22,12 +23,15 @@ const Home: React.FC = () => {
   return (
     <main>
       {isLogin ? (
-        <div className="p-5">
-          <h2 className="mb-8 text-4xl">{username} 的文章集</h2>
-          <div className="w-full md:w-4/5">
+        <main className="p-5 flex">
+          <section className="w-full md:w-4/5">
+            <h2 className="mb-8 text-4xl">{username} 的文章集</h2>
             <ArticleCategoryMain />
-          </div>
-        </div>
+          </section>
+          <section className="hidden md:block w-1/5">
+            <Search />
+          </section>
+        </main>
       ) : (
         <NotLoginIntro />
       )}
