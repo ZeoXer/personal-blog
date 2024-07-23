@@ -129,7 +129,7 @@ const ArticleCategoryMainDetail = ({
                             : `${FrontendRoutes.BLOG}/${article.id}`
                         );
                       }}
-                      className="md:hover:underline"
+                      className="md:hover:underline text-left"
                     >
                       {article.title}
                     </button>

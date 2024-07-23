@@ -127,7 +127,7 @@ const ArticleWrite = ({ articleId }: { articleId?: number }) => {
           />
           <button
             className={clsx(
-              "text-xl w-32 py-2 rounded-lg md:active:scale-90 transition border-2 flex items-center gap-1 justify-center",
+              "text-xl w-32 py-2 rounded-lg md:active:scale-90 transition border-2 hidden md:flex items-center gap-1 justify-center ",
               !isDarkMode && "border-gray-900"
             )}
             onClick={() => setIsPublished(!isPublished)}
@@ -161,14 +161,14 @@ const ArticleWrite = ({ articleId }: { articleId?: number }) => {
             textareaClassName="w-full h-[80vh] text-xl"
           />
         </div>
-        <div
+        <section
           className={clsx(
-            "h-[80vh] overflow-y-scroll border-2 rounded-lg px-4 py-2",
+            "h-[80vh] overflow-y-scroll border-2 rounded-lg px-4 py-2 hidden md:block",
             !isDarkMode && "border-gray-900"
           )}
         >
           <MarkdownDisplay content={content} />
-        </div>
+        </section>
       </section>
     </main>
   );

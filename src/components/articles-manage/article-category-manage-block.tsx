@@ -148,7 +148,7 @@ const ArticleCategoryManageBlock = ({ item }: { item: ArticleCategory }) => {
                 >
                   {article.title}
                 </Link>
-                <span>{formatDateString(article.updated_at)}</span>
+                <span className="hidden md:inline-block">{formatDateString(article.updated_at)}</span>
               </li>
             );
           })

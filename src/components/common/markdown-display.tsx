@@ -95,6 +95,9 @@ const MarkdownDisplay = ({ content }: { content: string }) => {
             </a>
           );
         },
+        li(props) {
+          return <li className="mb-2 list-disc ms-8" {...props}/>;
+        },
         code(props) {
           const { children, className, node, ...rest } = props;
           const match = /language-(\w+)/.exec(className || "");
