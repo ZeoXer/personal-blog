@@ -8,3 +8,16 @@ export const formatDateString = (date: string): string => {
     .toString()
     .padStart(2, "0")}`;
 };
+
+export const debounce = <T extends (...args: any) => any>(
+  func: T,
+  wait: number
+) => {
+  let timeout: NodeJS.Timeout;
+
+  return (...args: Parameters<T>): Promise<ReturnType<T>> =>
+    new Promise((resolve) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => resolve(func(...args)), wait);
+    });
+};

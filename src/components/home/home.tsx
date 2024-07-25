@@ -23,13 +23,15 @@ const Home: React.FC = () => {
   return (
     <main>
       {isLogin ? (
-        <main className="p-5 flex">
-          <section className="w-full md:w-4/5">
-            <h2 className="mb-8 text-4xl">{username} 的文章集</h2>
-            <ArticleCategoryMain />
-          </section>
-          <section className="hidden md:block w-1/5">
-            <Search />
+        <main className="p-5">
+          <h2 className="mb-8 text-4xl">{username} 的文章集</h2>
+          <section className="flex gap-4">
+            <section className="w-full md:w-4/5">
+              <ArticleCategoryMain />
+            </section>
+            <section className="hidden md:block w-1/5">
+              <Search />
+            </section>
           </section>
         </main>
       ) : (

@@ -123,3 +123,11 @@ export async function getArticleAnalysis() {
 
   return response;
 }
+
+export async function searchArticleByKeyword(keyword: string) {
+  const response = await HttpClient.get<APIResponse<Article[]>>(
+    `${API_ENDPOINTS.SEARCH_ARTICLE}?keyword=${keyword}`
+  );
+
+  return response;
+}

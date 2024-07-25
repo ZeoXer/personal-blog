@@ -18,4 +18,5 @@ export const API_ENDPOINTS = {
   GET_ARTICLES_BY_CATEGORY: "/article/getArticlesByCategory",
   GET_PUBLIC_ARTICLES_BY_CATEGORY: "/article/public/getArticlesByCategory",
   GET_ARTICLE_ANALYSIS: "/article/getArticleAnalysis",
+  SEARCH_ARTICLE: "/article/searchArticleByKeyword",
 };
