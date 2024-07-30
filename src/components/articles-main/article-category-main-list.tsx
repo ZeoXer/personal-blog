@@ -31,7 +31,7 @@ const ArticleCategoryMainList = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-8">
         {allCategory.map((category) => {
           return (
             <ArticleCategoryMainBlock key={category.id} category={category} />
