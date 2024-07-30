@@ -30,7 +30,7 @@ const Home: React.FC = () => {
               <ArticleCategoryMain />
             </section>
             <section className="hidden md:block md:w-2/5 2xl:w-1/5">
-              <Search />
+              <Search directTo="PRIVATE_READ" />
             </section>
           </section>
         </main>

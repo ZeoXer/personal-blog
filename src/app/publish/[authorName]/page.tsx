@@ -1,4 +1,5 @@
 import ArticleCategoryMain from "@/components/articles-main/article-category-main";
+import Search from "@/components/search/search";
 import { Metadata } from "next";
 
 type Props = {
@@ -20,11 +21,14 @@ export default function ArticleCategoryPage({
   params: { authorName: string };
 }) {
   return (
-    <div className="p-5">
+    <main className="p-5">
       <h2 className="mb-8 text-4xl">{params.authorName} 的文章集</h2>
-      <div className="w-full md:w-4/5">
+      <section className="w-full md:w-3/5 2xl:w-4/5">
         <ArticleCategoryMain authorName={params.authorName} />
-      </div>
-    </div>
+      </section>
+      <section className="hidden md:block md:w-2/5 2xl:w-1/5">
+        <Search directTo="PUBLIC_READ" />
+      </section>
+    </main>
   );
 }

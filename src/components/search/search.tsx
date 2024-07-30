@@ -10,7 +10,13 @@ import { Article } from "@/types/article";
 import Link from "next/link";
 import { FrontendRoutes } from "@/routes";
 
-const Search = () => {
+const directToRoute = {
+  PRIVATE_READ: FrontendRoutes.BLOG,
+  PUBLIC_READ: FrontendRoutes.PUBLISH,
+  WRITE: FrontendRoutes.ARTICLE,
+};
+
+const Search = ({ directTo }: { directTo: keyof typeof directToRoute }) => {
   const { isDarkMode } = useDarkMode();
   const [isSearching, setIsSearching] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -143,7 +149,7 @@ const Search = () => {
               >
                 <Link
                   className="text-xl md:hover:underline"
-                  href={`${FrontendRoutes.BLOG}/${article.id}`}
+                  href={`${directToRoute[directTo]}/${article.id}`}
                 >
                   {hightlightTitle(article.title)}
                 </Link>
