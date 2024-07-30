@@ -26,10 +26,10 @@ const Home: React.FC = () => {
         <main className="p-5">
           <h2 className="mb-8 text-4xl">{username} 的文章集</h2>
           <section className="flex gap-4">
-            <section className="w-full md:w-4/5">
+            <section className="w-full md:w-3/5 2xl:w-4/5">
               <ArticleCategoryMain />
             </section>
-            <section className="hidden md:block w-1/5">
+            <section className="hidden md:block md:w-2/5 2xl:w-1/5">
               <Search />
             </section>
           </section>
