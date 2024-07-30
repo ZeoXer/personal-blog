@@ -28,7 +28,7 @@ export default function ArticleCategoryPage({
           <ArticleCategoryMain authorName={params.authorName} />
         </section>
         <section className="hidden md:block md:w-2/5 2xl:w-1/5">
-          <Search directTo="PUBLIC_READ" />
+          <Search directTo="PUBLIC_READ" authorName={params.authorName} />
         </section>
       </div>
     </main>

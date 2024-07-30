@@ -16,7 +16,13 @@ const directToRoute = {
   WRITE: FrontendRoutes.ARTICLE,
 };
 
-const Search = ({ directTo }: { directTo: keyof typeof directToRoute }) => {
+const Search = ({
+  directTo,
+  authorName,
+}: {
+  directTo: keyof typeof directToRoute;
+  authorName?: string;
+}) => {
   const { isDarkMode } = useDarkMode();
   const [isSearching, setIsSearching] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -149,7 +155,9 @@ const Search = ({ directTo }: { directTo: keyof typeof directToRoute }) => {
               >
                 <Link
                   className="text-xl md:hover:underline"
-                  href={`${directToRoute[directTo]}/${article.id}`}
+                  href={`${directToRoute[directTo]}${
+                    authorName && `/${authorName}`
+                  }/${article.id}`}
                 >
                   {hightlightTitle(article.title)}
                 </Link>
