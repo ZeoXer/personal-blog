@@ -156,7 +156,7 @@ const Search = ({
                 <Link
                   className="text-xl md:hover:underline"
                   href={`${directToRoute[directTo]}${
-                    authorName && `/${authorName}`
+                    authorName ? `/${authorName}` : ""
                   }/${article.id}`}
                 >
                   {hightlightTitle(article.title)}
